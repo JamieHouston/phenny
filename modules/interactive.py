@@ -21,4 +21,10 @@ message_join.rule = r'.*'
 def thanks(phenny, input):
     welcome = ("You're welcome", "For what?", "No problem", "Why?", "Okay")
     phenny.say(random.choice(welcome))
-thanks.rule = r'^thanks$'
+thanks.rule = r'(?i)(thanks|thank you) $nickname[ \t]*$'
+
+
+def beer_me(phenny, input):
+    beers = ("One cold one, coming up", "A little early, no?", "My pleasure", "Looks like Zak drank them all.", "I... hic... don't see any...")
+    phenny.say(random.choice(beers))
+beer_me.rule = r'(?i)(beer me) $nickname[ \t]*$'

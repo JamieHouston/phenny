@@ -19,7 +19,7 @@ def status(phenny, input):
         return phenny.reply("Need an environment. Example: sqa1")
     environment = input.group(2)
     r = requests.get(endpoints[environment] + urls["search"])
-    answer = "{0}: {1}".format(environment, r.headers['status'])
+    answer = "{0}: {1}".format(environment, r.status_code)
     phenny.say(answer)
 
 status.commands = ['status']

@@ -8,7 +8,6 @@ http://inamidst.com/phenny/
 """
 
 import sys, os.path, time, imp
-import irc
 
 
 def f_reload(phenny, input):
