@@ -1,4 +1,24 @@
+#!/usr/bin/env python
+"""
+interactive.py - Phenny interactive module
+Interact with people in the channel
+"""
+
+import random
+
+
 def message_join(phenny, input):
-    phenny.say("welcome, %s!" % input.nick)
+
+    if input.nick == "CIBot2":
+        back = ("Did ya miss me?", "I'm baaaaccckk", "What's up y'all!", "Anyone see the game last night?", "Me again.", "Howdy folks")
+        phenny.say(random.choice(back))
+    else:
+        phenny.say("welcome, %s!" % input.nick)
 message_join.event = 'JOIN'
 message_join.rule = r'.*'
+
+
+def thanks(phenny, input):
+    welcome = ("You're welcome", "For what?", "No problem", "Why?", "Okay")
+    phenny.say(random.choice(welcome))
+thanks.rule = r'^thanks$'
