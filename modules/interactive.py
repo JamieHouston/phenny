@@ -9,7 +9,7 @@ import random
 
 def message_join(phenny, input):
 
-    if input.nick == "CIBot2":
+    if input.nick == phenny.nick:
         back = ("Did ya miss me?", "I'm baaaaccckk", "What's up y'all!", "Anyone see the game last night?", "Me again.", "Howdy folks")
         phenny.say(random.choice(back))
     else:
@@ -22,6 +22,12 @@ def thanks(phenny, input):
     welcome = ("You're welcome", "For what?", "No problem", "Why?", "Okay")
     phenny.say(random.choice(welcome))
 thanks.rule = r'(?i)(thanks|thank you) $nickname[ \t]*$'
+
+
+def good_night(phenny, input):
+    night = ("So soon?", "Finally", "Later", "I guess we can't all put in 24 hours a day", "You'll be back")
+    phenny.say(random.choice(night))
+good_night.rule = r'(?i)(bye|good night|see ya) $nickname[ \t]*$'
 
 
 def beer_me(phenny, input):
