@@ -70,7 +70,7 @@ class Bot(asynchat.async_chat):
             if text is not None:
                 text = safe(text)
             self.__write(args, text)
-        except Exception, e:
+        except Exception:
             pass
 
     def run(self, host, port=6667):

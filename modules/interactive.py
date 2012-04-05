@@ -13,7 +13,8 @@ def message_join(phenny, input):
         back = ("Did ya miss me?", "I'm baaaaccckk", "What's up y'all!", "Anyone see the game last night?", "Me again.", "Howdy folks")
         phenny.say(random.choice(back))
     else:
-        phenny.say("welcome, %s!" % input.nick)
+        greetings = ("welcome ,%s", "what's up, %s", "hey everyone, %s is here!", "Look what the cat dragged in.", "Guess who's back!")
+        phenny.say(random.choice(greetings) % input.nick)
 message_join.event = 'JOIN'
 message_join.rule = r'.*'
 

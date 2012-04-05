@@ -1,2 +1,2 @@
 *.pyc
-modules/users.txt
+modules/*.txt
