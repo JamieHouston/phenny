@@ -7,7 +7,7 @@ Licensed under the Eiffel Forum License 2.
 http://inamidst.com/phenny/
 """
 
-import sys, os.path, time, imp
+import sys, os.path, imp  # , time
 
 
 def f_reload(phenny, input):
@@ -40,13 +40,14 @@ def f_reload(phenny, input):
     if hasattr(module, 'setup'):
         module.setup(phenny)
 
-    mtime = os.path.getmtime(module.__file__)
-    modified = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(mtime))
+    #mtime = os.path.getmtime(module.__file__)
+    #modified = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(mtime))
 
     phenny.register(vars(module))
     phenny.bind_commands()
 
-    phenny.reply('%r (version: %s)' % (module, modified))
+    phenny.reply("As if I have nothing better to do. I reloaded {0}.".format(name))
+    #phenny.reply('%r (version: %s)' % (module, modified))
 f_reload.name = 'reload'
 f_reload.rule = ('$nick', ['reload'], r'(\S+)?')
 f_reload.priority = 'low'

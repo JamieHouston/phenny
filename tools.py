@@ -8,6 +8,13 @@ http://inamidst.com/phenny/
 """
 
 
+# Dynamic class
+# Instantiate with bla=Dyamic(x=1, y=2)
+# then just set of call like bla.foo = True
+class Dynamo:
+    __init__ = lambda self, **kw: setattr(self, '__dict__', kw)
+
+
 def deprecated(old):
     def new(phenny, input, old=old):
         self = phenny
