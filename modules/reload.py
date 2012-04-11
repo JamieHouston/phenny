@@ -7,7 +7,7 @@ Licensed under the Eiffel Forum License 2.
 http://inamidst.com/phenny/
 """
 
-import sys, os.path, imp  # , time
+import sys, os.path, imp, random  # , time
 
 
 def f_reload(phenny, input):
@@ -46,7 +46,10 @@ def f_reload(phenny, input):
     phenny.register(vars(module))
     phenny.bind_commands()
 
-    phenny.reply("As if I have nothing better to do. I reloaded {0}.".format(name))
+    why_god = ("Can I get you sandwich while I'm at it?", "As if I have nothing better to do. I reloaded {0}.", "How bout I tap dance and reload {0}?",
+        "Would you like fries with {0}?", "It would be my pleasure to reload {0}.  And by pleasure I mean desire to drop myself in a pool.")
+
+    phenny.reply(random.choice(why_god).format(name))
     #phenny.reply('%r (version: %s)' % (module, modified))
 f_reload.name = 'reload'
 f_reload.rule = ('$nick', ['reload'], r'(\S+)?')

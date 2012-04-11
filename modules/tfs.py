@@ -87,14 +87,18 @@ class Tfs_Handler(object):
         else:
             self.write_settings(new_vars, new_steps)
             try:
-                #file_command = "C:\\Windows\\SysNative\\WindowsPowerShell\\v1.0\\powershell.exe %s\RunMe.ps1" % self.settings.script_path
-                file_command = "powershell %s\RunMe.ps1" % self.settings.script_path
+                #if self.settings.command == "publish":
+                #    file_command = "powershell.exe C:\\dev\\scripts\\CorbisBuilder5000X\\RunMe-Remote.ps1"
+                #else:
+                #    file_command = "C:\\Windows\\SysNative\\WindowsPowerShell\\v1.0\\powershell.exe %s\RunMe.ps1" % self.settings.script_path
+                #file_command = "powershell %s\RunMe.ps1" % self.settings.script_path
+                file_command = "C:\\Windows\\SysNative\\WindowsPowerShell\\v1.0\\powershell.exe %s\RunMe.ps1" % self.settings.script_path
                 subprocess.call(file_command)
             except Exception, e:
                 self.phenny.say(("dude, it totally failed: {0}").format(e))
 
-            #finished = ("Ding fries are done.", "Back to work, I'm finished.", "All done, your majesty.", "Anything else you need?")
-            finished = ("I've finished your stupid work.", "Back to work, I'm finished.", "All done, your majesty.", "Anything else you need?", "Done.  But I'm sure you have more for me to do.")
+            finished = ("As they say in Coming to America, your royal project is clean.", "Ding fries are done.", "Back to work, I'm finished.", "All done, your majesty.", "Anything else you need?",
+                "I've finished your stupid work.", "Done.  But I'm sure you have more for me to do.")
             self.phenny.reply(random.choice(finished))
 
     def update_config(self, path, old_environment, new_environment):
@@ -169,7 +173,7 @@ def tfs(phenny, input):
 
     command = parameters[0]
 
-    doit = ("Here I am, brain the size of a planet and they ask me to {0}. Call that job satisfaction? 'Cos I don't.", "I guess I'll start the {0}",
+    doit = ("I'll get right on that {0}, sir.", "Here I am, brain the size of a planet and they ask me to {0}. Call that job satisfaction? 'Cos I don't.", "I guess I'll start the {0}",
         "I would like to say that it is a very great pleasure, honour and privilege for me to {0}, but I can't because my lying circuits are all out of commission.",
         "{0}, eh? It won't work.")
     phenny.say(random.choice(doit).format(command))
@@ -229,7 +233,7 @@ def tfs(phenny, input):
 
 tfs.rule = r'(?i)(build|publish|mapiis) ([\d\w\.]*)(?: | on | to )?([\d\w\.])+(?: | with | using )?([\d\w\.]*)$'
 #tfs.commands = ['tfs']
-tfs.example = '.tfs build 12.2.01 or .tfs publish sqa1 on dev1'
+tfs.example = 'build 12.2.01 or publish sqa1 on dev1'
 tfs.thread = True
 
 
