@@ -26,4 +26,4 @@ def trap(phenny, input):
     url = random.choice(ackbars)
     phenny.say(url)
     webbrowser.open(url)
-trap.rule = r'(?i).*(trap).*'
+trap.rule = r'(?i).*( trap).*'

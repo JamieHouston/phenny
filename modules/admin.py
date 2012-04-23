@@ -48,6 +48,16 @@ quit.commands = ['quit']
 quit.priority = 'low'
 
 
+def exit(phenny, input):
+    if input.admin:
+        phenny.write(['This sucks.'])
+        __import__('os')._exit(0)
+    else:
+        phenny.say('You first.')
+exit.rule = r'(?i)($nickname: )take a hike$'
+exit.priority = 'high'
+
+
 def msg(phenny, input):
     # Can only be done in privmsg by an admin
     if input.sender.startswith('#'):

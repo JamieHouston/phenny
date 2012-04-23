@@ -151,6 +151,10 @@ class Tfs_Handler(object):
         branch = self.settings.branch
         self.run({"branch": branch, "workspaceName": branch}, {"MapIIS": "true"})
 
+    def create_branch(self):
+        branch = self.settings.branch
+        self.run({"branch": branch}, {"createBranch": "true"})
+
 
 def tfs(phenny, input):
     """ TFS Builder.
@@ -227,11 +231,12 @@ def tfs(phenny, input):
         return
 
     handler = Tfs_Handler(settings, phenny)
-    if hasattr(handler, command):
-        runner = getattr(handler, command)
+    tfs_command = command.replace(' ', '_')
+    if hasattr(handler, tfs_command):
+        runner = getattr(handler, tfs_command)
         runner()
 
-tfs.rule = r'(?i)(build|publish|mapiis) ([\d\w\.]*)(?: | on | to )?([\d\w\.])+(?: | with | using )?([\d\w\.]*)$'
+tfs.rule = r'(?i)(build|publish|mapiis) ([\d\w\.\-]*)(?: | on | to )?([\d\w\.])+(?: | with | using )?([\d\w\.]*)$'
 #tfs.commands = ['tfs']
 tfs.example = 'build 12.2.01 or publish sqa1 on dev1'
 tfs.thread = True
