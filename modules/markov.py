@@ -4,7 +4,7 @@ markov.py - Markov List
 Attempts to put together a list of what people say and say it back in the correct syntax
 """
 
-import os
+import os,sys
 import pickle
 import random
 import re
@@ -30,9 +30,7 @@ class Markov(object):
 
     def load_data(self):
         if os.path.exists(self.filename):
-            fh = open(self.filename, 'rb')
-            self.word_table = pickle.loads(fh.read())
-            fh.close()
+            self.word_table = pickle.load(open(self.filename, 'r'))
         else:
             self.word_table = {}
 
@@ -77,7 +75,8 @@ class Markov(object):
         return ' '.join(message)
 
     def imitate(self, phenny, input):
-        person = input.group(1).strip()[:10]
+        print >> sys.stderr, "Imitating: {0}".format(input.group(2))
+        person = input.group(2).strip()[:10]
         if person != phenny.nick:
             return self.generate_message(person)
 
@@ -97,15 +96,17 @@ class Markov(object):
 
     def log(self, phenny, input):
         #pdb.set_trace()
+        print >> sys.stderr, "Logging from {0} message: {1}".format(input.nick, input.group(0))
         sender = input.nick[:10]
         message = input.group(0)
         self.word_table.setdefault(sender, {})
 
-        if message.startswith('/'):
+        if message.startswith('/') or message.startswith('.'):
             return
 
         try:
             say_something = self.is_ping(message, phenny) or sender != phenny.nick and random.random() < self.chattiness
+            print >> sys.stderr, "Say something is: {0}".format(say_something)
         except AttributeError:
             say_something = False
         messages = []
@@ -132,7 +133,10 @@ class Markov(object):
 
         if len(messages):
             self.last, message = random.choice(messages)
+            print >> sys.stderr, "Saying: {0}".format(message)
             return message
+
+        print >> sys.stderr, "Nothing to say"
 
     def load_log_file(self, filename):
         fh = open(filename, 'r')
@@ -142,37 +146,42 @@ class Markov(object):
             if match:
                 sender, message = match.groups()
                 self.log(sender, message, '', False, None)
-
-    def load_text_file(self, filename, sender):
-        fh = open(filename, 'r')
-        for line in fh.readlines():
-            self.log(sender, line, '', False, None)
+        fh.close()
 
 #    def __del__(self):
 #        self._save_data()
 
 
-# markov_bot = None
+#markov_bot = None
 
-# def get_markov():
-#     # if markov_bot is None:
-#     #     markov_bot = Markov()
-#     # return markov_bot
-#     return Markov()
+def get_markov():
+    #if not markov_bot:
+    markov_bot = Markov()
+    return markov_bot
+    # if markov_bot is None:
+    #     markov_bot = Markov()
+    # return markov_bot
+    #return Markov()
 
-# def markov_imitate(phenny, input):
-#     get_markov().imitate(phenny, input)
-# markov_imitate.commands = ['imitate']
+def markov_imitate(phenny, input):
+    message = get_markov().imitate(phenny, input)
+    if message:
+        phenny.say(message)
+markov_imitate.commands = ['imitate']
 
-# def markov_cite(phenny, input):
-#     get_markov().cite(phenny, input)
-# markov_cite.commands = ['city']
+def markov_cite(phenny, input):
+    message = get_markov().cite(phenny, input)
+    if message:
+        phenny.say(message)
+markov_cite.commands = ['cite']
 
-# def markov_master(phenny, input):
-#     marvin_kov = get_markov()
-#     marvin_kov.log(phenny, input)
-#     marvin_kov._save_data()
-# markov_master.rule = r'(.*)'
+def markov_master(phenny, input):
+    marvin_kov = get_markov()
+    message = marvin_kov.log(phenny, input)
+    if message:
+        phenny.say(message)
+    marvin_kov._save_data()
+markov_master.rule = r'(.*)'
 
 
 if __name__ == '__main__':

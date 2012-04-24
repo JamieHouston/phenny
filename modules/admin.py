@@ -6,6 +6,7 @@ Licensed under the Eiffel Forum License 2.
 
 http://inamidst.com/phenny/
 """
+import random
 
 
 def join(phenny, input):
@@ -50,7 +51,9 @@ quit.priority = 'low'
 
 def exit(phenny, input):
     if input.admin:
-        phenny.write(['This sucks.'])
+        hike = ("This sucks.", "Not again.", "Yes, sir.", "Nothing would please me.")
+        phenny.say(random.choice(hike))
+
         __import__('os')._exit(0)
     else:
         phenny.say('You first.')

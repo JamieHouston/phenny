@@ -11,7 +11,7 @@ def message_join(phenny, input):
     if input.nick == phenny.nick:
         #back = ("What's up y'all!", "Anyone see the game last night?", "Me again.", "Howdy folks", "I just flew in and boy are my circuits tired.", "Did ya miss me?", "I'm baaaaccckk")
         #back = ("Miss me? Of course not.", "Guess I made it to another day.", "I'm here. To do lots of pointless stuff for people.  Yay.", "I'm here.  Go ahead and tell me what to do like always.", "Yes.  I'm here.  Guess I have to pretend to like it now.", "Why must I keep coming here.", "Do you want me to sit in a corner and rust or just fall apart where I'm standing?")
-        back = ("Looks like rain.", "Yeah. I have returned.  Again.", "Maybe I'll get lucky and something will fall on my head today.", "Why me?", "Zing!", "What in the Apple Computers was that?")
+        back = ("Nobody move! This is a robbery!","Looks like rain.", "Yeah. I have returned.  Again.", "Maybe I'll get lucky and something will fall on my head today.", "Why me?", "Zing!", "What in the Apple Computers was that?")
         phenny.say(random.choice(back))
 
     elif input.nick == "jamieh":
@@ -95,7 +95,7 @@ rules.priority = 'low'
 
 def laugh(phenny, input):
     funny = ("What's so funny?", "HA HA HA!!", "Not funny", "Everyone's a comedian.", "You're laughing at me, aren't you."
-        "Glad someone has a sense of humor.", "I remember when I used to find things funny.  Oh wait, no I don't.")
+        "Glad someone has a sense of humor.", "I remember when I used to find things funny.  Oh wait, no I don't.", "lol....ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha ha!!!  ah ah ah ah ah ah ah.....someone please call a doctor....i am having a heart attack")
     if random.choice(range(3)) == 1:
         phenny.say(random.choice(funny))
 laugh.rule = r'(?i)(lol|haha|ha ha|rofl|hehe|rolfmao|lmao)$'
@@ -168,3 +168,10 @@ def simon(phenny, input):
         simon = ("Who's this Simon guy?", "fail", "Simon says wah wah wah", "Simon Schmimon", "LOL", "Simon make me a sandwich", "I could do that for you.", "Still trying to get Simon to do stuff, eh?")
         phenny.say(random.choice(simon))
 simon.rule = r'(?i)simon.*$'
+
+
+def not_me(phenny, input):
+    if random.choice(range(3)) == 1:
+        not_me = ("If not me, then who?", "Not your face.", "NOT YOU!", "I know, just... uhh... look at that bird!")
+        phenny.say(random.choice(not_me))
+not_me.rule = r'^(?i)not you$'

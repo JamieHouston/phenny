@@ -3,6 +3,13 @@ import time
 
 
 def status(phenny, input):
+    def get_status(url, service):
+        start = time.time()
+        r = requests.get(url)
+        end = time.time() - start
+        return {'duration' : end, 'status_code': r.status_code, 'url': "{0}{1}".format(url[:10], "..."), 'service': service}
+        #return "{0}: response code {1} (time: {2})".format(name, r.status_code, end)
+
     urls = {
         "navigator": "Navigator?ActivityId=d84c7686-cb60-450d-bbe0-8acf419d44e7&ClientIp=127.0.0.1&Plan=SolrImage&EnableSlotting=True&Debug=Debug&IsAnonymous=False&EnableOutlineForAll=True&Permissions=HasPermissionSearchRM,HasPermissionViewPromotion,HasPermissionSearchRF,HasPermissionSearchRS,HasPermissionLogonToExternalSite,HasPermissionCreateUpdateContributorContract&CountryCode=US&Language=en-US&Navigator=nav-NumberOfPeople,nav-Gender,nav-Age,nav-Ethnicity,ImageType,ColorFormat,Orientation,IsModelReleased,IsPropertyReleased,nav-Style,nav-Layout,nav-Viewpoint,IsInRfCd",
         "search": "Search?Plan=SolrImage&SearchText=dog&Permissions=HasPermissionSearchRF,HasPermissionSearchRM&CountryCode=US&Language=en-US&ActivityId=aac2cd58-c1ba-4708-a97fcd146402080e&SessionId=223f47bd-2a3b-4122-ae7d-82344a1d5d6d"}
@@ -20,32 +27,19 @@ def status(phenny, input):
     }
 
     if not input.group(2):
-        return phenny.reply("Need an environment. Example: sqa1")
+        return phenny.reply("Need an envronment or url. Example: sqa1 or http://corbis.com")
+
     environment = input.group(2)
 
     if environment.startswith("http"):
-        url = environment
-        start = time.time()
-        r = requests.get(url)
-        end = time.time() - start
-        answer = "{0}...: {1} ({2})".format(environment[:10], r.status_code, end)
-        phenny.say(answer)
+        stat = get_status(url, 'custom')
+        phenny.say("%(service)s status code %(status_code)s %(duration)s" % stat)
     else:
-        url = "search"
-        start = time.time()
-        r = requests.get(endpoints[environment] + urls[url])
-        end = time.time() - start
-        answer = "{0} ({1}): {2} ({3})".format(environment, url, r.status_code, end)
+        for service in urls:
+            get_status(endpoints[environment] + urls[service], service)
+            phenny.say("%(service)s status code %(status_code)s %(duration)s" % stat)
 
-        phenny.say(answer)
 
-        url = "navigator"
-        start = time.time()
-        r = requests.get(endpoints[environment] + urls[url])
-        end = time.time() - start
-        answer = "{0} ({1}): {2} ({3})".format(environment, url, r.status_code, end)
-
-        phenny.say(answer)
 status.commands = ['status']
 status.priority = 'high'
 if __name__ == '__main__':
