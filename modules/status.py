@@ -7,8 +7,11 @@ def status(phenny, input):
         start = time.time()
         r = requests.get(url)
         end = time.time() - start
-        return {'duration' : end, 'status_code': r.status_code, 'url': "{0}{1}".format(url[:10], "..."), 'service': service}
-        #return "{0}: response code {1} (time: {2})".format(name, r.status_code, end)
+        if r.content == "null" or len(r.content) == 0:
+            status = "FAIL!!!!"
+        else:
+            status = r.status_code
+        return {'duration' : end, 'status_code': status, 'url': "{0}{1}".format(url[:10], "..."), 'service': service}
 
     urls = {
         "navigator": "Navigator?ActivityId=d84c7686-cb60-450d-bbe0-8acf419d44e7&ClientIp=127.0.0.1&Plan=SolrImage&EnableSlotting=True&Debug=Debug&IsAnonymous=False&EnableOutlineForAll=True&Permissions=HasPermissionSearchRM,HasPermissionViewPromotion,HasPermissionSearchRF,HasPermissionSearchRS,HasPermissionLogonToExternalSite,HasPermissionCreateUpdateContributorContract&CountryCode=US&Language=en-US&Navigator=nav-NumberOfPeople,nav-Gender,nav-Age,nav-Ethnicity,ImageType,ColorFormat,Orientation,IsModelReleased,IsPropertyReleased,nav-Style,nav-Layout,nav-Viewpoint,IsInRfCd",
@@ -32,12 +35,12 @@ def status(phenny, input):
     environment = input.group(2)
 
     if environment.startswith("http"):
-        stat = get_status(url, 'custom')
-        phenny.say("%(service)s status code %(status_code)s %(duration)s" % stat)
+        stat = get_status(environment, 'custom')
+        phenny.say("Service: %(service)s Status: %(status_code)s Duration: %(duration)s" % stat)
     else:
         for service in urls:
-            get_status(endpoints[environment] + urls[service], service)
-            phenny.say("%(service)s status code %(status_code)s %(duration)s" % stat)
+            stat = get_status(endpoints[environment] + urls[service], service)
+            phenny.say("Service: %(service)s Status: %(status_code)s Duration: %(duration)s" % stat)
 
 
 status.commands = ['status']

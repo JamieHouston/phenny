@@ -15,6 +15,10 @@ class Dynamo:
     __init__ = lambda self, **kw: setattr(self, '__dict__', kw)
 
 
+# Tree from https://gist.github.com/2012250
+def tree(): return defaultdict(tree)
+
+
 def deprecated(old):
     def new(phenny, input, old=old):
         self = phenny

@@ -15,7 +15,8 @@ def message_join(phenny, input):
         phenny.say(random.choice(back))
 
     elif input.nick == "jamieh":
-        phenny.say("What's up your awesomeness.")
+        master_here = ("What's up your awesomeness.", "All rise, for the honorable jamieh")
+        phenny.say(random.choice(master_here))
 
     elif input.nick == "Simon":
         simon_says = ("Simon says go away.", "All hail the lowest form of digital life.", "Who invited this guy?")

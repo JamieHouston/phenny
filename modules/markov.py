@@ -75,7 +75,7 @@ class Markov(object):
         return ' '.join(message)
 
     def imitate(self, phenny, input):
-        print >> sys.stderr, "Imitating: {0}".format(input.group(2))
+        #print >> sys.stderr, "Imitating: {0}".format(input.group(2))
         person = input.group(2).strip()[:10]
         if person != phenny.nick:
             return self.generate_message(person)
@@ -96,7 +96,7 @@ class Markov(object):
 
     def log(self, phenny, input):
         #pdb.set_trace()
-        print >> sys.stderr, "Logging from {0} message: {1}".format(input.nick, input.group(0))
+        #print >> sys.stderr, "Logging from {0} message: {1}".format(input.nick, input.group(0))
         sender = input.nick[:10]
         message = input.group(0)
         self.word_table.setdefault(sender, {})
@@ -106,7 +106,7 @@ class Markov(object):
 
         try:
             say_something = self.is_ping(message, phenny) or sender != phenny.nick and random.random() < self.chattiness
-            print >> sys.stderr, "Say something is: {0}".format(say_something)
+            #print >> sys.stderr, "Say something is: {0}".format(say_something)
         except AttributeError:
             say_something = False
         messages = []
@@ -133,10 +133,10 @@ class Markov(object):
 
         if len(messages):
             self.last, message = random.choice(messages)
-            print >> sys.stderr, "Saying: {0}".format(message)
+            #print >> sys.stderr, "Saying: {0}".format(message)
             return message
 
-        print >> sys.stderr, "Nothing to say"
+        #print >> sys.stderr, "Nothing to say"
 
     def load_log_file(self, filename):
         fh = open(filename, 'r')

@@ -1,2 +1,3 @@
 *.pyc
 modules/*.txt
+modules/*.db
