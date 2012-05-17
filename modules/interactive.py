@@ -11,7 +11,7 @@ def message_join(phenny, input):
     if input.nick == phenny.nick:
         #back = ("What's up y'all!", "Anyone see the game last night?", "Me again.", "Howdy folks", "I just flew in and boy are my circuits tired.", "Did ya miss me?", "I'm baaaaccckk")
         #back = ("Miss me? Of course not.", "Guess I made it to another day.", "I'm here. To do lots of pointless stuff for people.  Yay.", "I'm here.  Go ahead and tell me what to do like always.", "Yes.  I'm here.  Guess I have to pretend to like it now.", "Why must I keep coming here.", "Do you want me to sit in a corner and rust or just fall apart where I'm standing?")
-        back = ("Nobody move! This is a robbery!","Looks like rain.", "Yeah. I have returned.  Again.", "Maybe I'll get lucky and something will fall on my head today.", "Why me?", "Zing!", "What in the Apple Computers was that?")
+        back = ("Knock knock", "WE DON'T DIE! WE GO DOWN FOR SERVICE!", "I am a banana!", "And lo, it was bad.", "This is your bot on drugs", "Someone fart?", "Tap the keg.  I'm here", "Nobody move! This is a robbery!","Looks like rain.", "Yeah. I have returned.  Again.", "Maybe I'll get lucky and something will fall on my head today.", "Why me?", "Zing!", "What in the Apple Computers was that?")
         phenny.say(random.choice(back))
 
     elif input.nick == "jamieh":
@@ -65,7 +65,7 @@ No.priority = "low"
 def good_night(phenny, input):
     night = ("So soon?", "Finally", "Later", "I guess we can't all put in 24 hours a day", "You'll be back")
     phenny.say(random.choice(night))
-good_night.rule = r'(?i)good(bye|night| evening)[ \t]*$'
+good_night.rule = r'(?i)good(bye|night| evening| night)[ \t]*$'
 
 
 def good_morning(phenny, input):
@@ -154,14 +154,14 @@ def feel(phenny, input):
 feel.rule = ('$nick', r'(?i)(how do you|how are you).*$')
 
 
-def questions(phenny, input):
-    answers = ("Maybe so.  Maybe not.", "Could be.", "How would I know?", "For me to know and for you to find out.", "That's a very good question.", "Doubtful.", "Reply hazy, don't ask again.",
-        "What do I look like, a magic 8 ball? Speaking of which, I could use one right now.", "That was the dumbest question I've ever processed.", "Wouldn't you like to know.", "Of course. Not. Unless, maybe... no.",
-        "Ask no questions and you'll be told no lies.", "Why do you ask?", "I forget.", "42", "I'm not going to answer that.",
-        "If you want me to lie, ask me again.", "That sounds like a question for... someone else.", "I won't justify that with an answer.",
-        "Undoubtedly so.", "What a dumb question.", "Yes.", "No.", "Ask someone else first.", "Would you believe me if I said I don't know?")
-    phenny.say(random.choice(answers))
-questions.rule = ('$nick', r'(?i)(did|are|is|can|what|where|when|why|will).*$')
+# def questions(phenny, input):
+#     answers = ("Maybe so.  Maybe not.", "Could be.", "How would I know?", "For me to know and for you to find out.", "That's a very good question.", "Doubtful.", "Reply hazy, don't ask again.",
+#         "What do I look like, a magic 8 ball? Speaking of which, I could use one right now.", "That was the dumbest question I've ever processed.", "Wouldn't you like to know.", "Of course. Not. Unless, maybe... no.",
+#         "Ask no questions and you'll be told no lies.", "Why do you ask?", "I forget.", "42", "I'm not going to answer that.",
+#         "If you want me to lie, ask me again.", "That sounds like a question for... someone else.", "I won't justify that with an answer.",
+#         "Undoubtedly so.", "What a dumb question.", "Yes.", "No.", "Ask someone else first.", "Would you believe me if I said I don't know?")
+#     phenny.say(random.choice(answers))
+# questions.rule = ('$nick', r'(?i)(did|are|is|can|what|where|when|why|will).*$')
 
 
 def simon(phenny, input):

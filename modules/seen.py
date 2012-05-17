@@ -21,9 +21,9 @@ def f_seen(self, origin, match, args):
         return self.msg(origin.sender, '?')
     if nick in self.seen:
         channel, t = self.seen[nick]
-        t = time.strftime('%Y-%m-%d %H:%M:%S UTC', time.gmtime(t))
+        t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
 
-        msg = "I last saw %s at %s on %s" % (nick, t, channel)
+        msg = "I last saw %s at %s" % (nick, t)
         self.msg(origin.sender, str(origin.nick) + ': ' + msg)
     else:
         self.msg(origin.sender, "Sorry, I haven't seen %s around." % nick)

@@ -51,7 +51,7 @@ quit.priority = 'low'
 
 def exit(phenny, input):
     if input.admin:
-        hike = ("This sucks.", "Not again.", "Yes, sir.", "Nothing would please me.")
+        hike = ("This sucks.", "Not again.", "Yes, sir.", "Nothing would please me.", "Why, Science!? Why!?", "Good, I gotta take a memory dump.")
         phenny.say(random.choice(hike))
 
         __import__('os')._exit(0)

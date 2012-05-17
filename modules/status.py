@@ -22,8 +22,8 @@ def status(phenny, input):
         'dev2': 'http://DL00DEV2API01.corbis.pre/Search/V3/Search',
         'dev3': 'http://DL00DEV3API01.corbis.pre/Search/V3/Search',
         'sqa1': 'http://sqa1apiint64.corbis.pre/Search/V3/',
-        'sqa2': 'http://sqa1apiint64.corbis.pre/Search/V3/',
-        'sqa3': 'http://sqa1apiint64.corbis.pre/Search/V3/',
+        'sqa2': 'http://sqa2apiint64.corbis.pre/Search/V3/',
+        'sqa3': 'http://sqa3apiint64.corbis.pre/Search/V3/',
         'stg': 'http://stgapiint64.corbis.com/Search/V3/',
         'beta': 'http://betaapiint.corbis.com/Search/V3/',
         'prod': 'http://apiint64.corbis.com/Search/V3/',
@@ -39,8 +39,13 @@ def status(phenny, input):
         phenny.say("Service: %(service)s Status: %(status_code)s Duration: %(duration)s" % stat)
     else:
         for service in urls:
-            stat = get_status(endpoints[environment] + urls[service], service)
-            phenny.say("Service: %(service)s Status: %(status_code)s Duration: %(duration)s" % stat)
+            try:
+                stat = get_status(endpoints[environment] + urls[service], service)
+                phenny.say("Service: %(service)s Status: %(status_code)s Duration: %(duration)s" % stat)
+            except Exception, e:
+                phenny.say("It either works or it doesn't.  Try a real url or environment and I'll try a real test.")
+            finally:
+                pass
 
 
 status.commands = ['status']
