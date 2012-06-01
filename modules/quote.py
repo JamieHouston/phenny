@@ -7,7 +7,9 @@ l = list()
 
 
 def quote_me(phenny, input):
-    phenny.say(random.sample(l, 1)[0])
+    quote_to_say =random.sample(l, 1)[0].replace("Norris", "Nelson")
+
+    phenny.say(quote_to_say)
 
 
 def load_quotes(quote_list, file):

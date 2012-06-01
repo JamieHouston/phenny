@@ -24,11 +24,16 @@ class Markov(object):
     stop_word = '\n'
     filename = 'markov.db'
     last = None
+    activities = 0
 
     def __init__(self):
         self.load_data()
 
+    def _should_update(self):
+        return self.activities > 5
+
     def load_data(self):
+        print "loading data"
         if os.path.exists(self.filename):
             self.word_table = pickle.load(open(self.filename, 'r'))
         else:
@@ -36,6 +41,7 @@ class Markov(object):
 
     def _save_data(self):
         #pdb.set_trace()
+        print "saving data"
         fh = open(self.filename, 'w')
         fh.write(pickle.dumps(self.word_table))
         fh.close()
@@ -133,10 +139,9 @@ class Markov(object):
 
         if len(messages):
             self.last, message = random.choice(messages)
-            #print >> sys.stderr, "Saying: {0}".format(message)
+            if self._should_update():
+                self._save_data()
             return message
-
-        #print >> sys.stderr, "Nothing to say"
 
     def load_log_file(self, filename):
         fh = open(filename, 'r')
@@ -148,20 +153,11 @@ class Markov(object):
                 self.log(sender, message, '', False, None)
         fh.close()
 
-#    def __del__(self):
-#        self._save_data()
-
-
-#markov_bot = None
+class BotInfo:
+    bot = Markov()
 
 def get_markov():
-    #if not markov_bot:
-    markov_bot = Markov()
-    return markov_bot
-    # if markov_bot is None:
-    #     markov_bot = Markov()
-    # return markov_bot
-    #return Markov()
+    return BotInfo.bot
 
 def markov_imitate(phenny, input):
     message = get_markov().imitate(phenny, input)
@@ -180,7 +176,7 @@ def markov_master(phenny, input):
     message = marvin_kov.log(phenny, input)
     if message:
         phenny.say(message)
-    marvin_kov._save_data()
+
 markov_master.rule = r'(.*)'
 
 

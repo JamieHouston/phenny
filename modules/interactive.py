@@ -176,3 +176,16 @@ def not_me(phenny, input):
         not_me = ("If not me, then who?", "Not your face.", "NOT YOU!", "I know, just... uhh... look at that bird!")
         phenny.say(random.choice(not_me))
 not_me.rule = r'^(?i)not you$'
+
+
+def awesome(phenny, input):
+    if random.choice(range(3)) == 1:
+        awesome_sauce = ("Awesome sauce!", "King awesome, reporting for duty.", "Awesome is as awesome does.")
+        phenny.say(random.choice(awesome_sauce))
+awesome.rule = r'(?i).awesome.'
+
+
+def ignore(phenny, input):
+    ignore_him = ("My pleasure", "I already am", "I've tried, it doesn't work.", "I'd rather ignore you.")
+    phenny.say(random.choice(ignore_him))
+ignore.commands = ['ignore']
